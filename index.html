@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="fi" data-lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Variksen Luomu – Luomumansikkaa ja koivuklapeja Pyhäjärveltä</title>
+  <meta name="description" content="Variksen Luomu on pieni perheyritys Pyhäjärvellä, Pohjois-Pohjanmaalla. Kasvatamme luomumansikkaa ja -mustaherukkaa sekä myymme koivuklapeja suoraan tilalta.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,300;1,8..60,400;1,8..60,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    /* ─── TOKENS ──────────────────────────────── */
+    :root {
+      --cream:     #f8f5ef;
+      --cream-dk:  #f0ebe0;
+      --cream-3:   #e8e1d4;
+      --ink:       #1a2218;
+      --ink-mid:   #3a4438;
+      --muted:     #7a7268;
+      --berry:     #c83020;
+      --berry-lt:  #e85040;
+      --bark:      #b89030;
+      --bark-lt:   #d4aa50;
+      --current:   #5c2a60;
+      --sage:      #3a5828;
+      --sage-lt:   #d0ddc8;
+      --r:         2px;
+      --serif:     'Source Serif 4', Georgia, serif;
+      --sans:      'DM Sans', system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { background: var(--cream); color: var(--ink); font-family: var(--sans); overflow-x: hidden; }
+
+    /* i18n */
+    [data-lang="fi"] .lang-sv, [data-lang="fi"] .lang-en { display: none; }
+    [data-lang="sv"] .lang-fi, [data-lang="sv"] .lang-en { display: none; }
+    [data-lang="en"] .lang-fi, [data-lang="en"] .lang-sv { display: none; }
+    .blk { display: block; }
+
+    /* ─── NAV ──────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: transparent;
+      transition: background 0.35s ease, box-shadow 0.35s ease;
+    }
+    .nav.solid {
+      background: var(--cream-dk);
+      box-shadow: 0 1px 0 rgba(26,34,24,0.10);
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 64px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.75rem;
+      text-decoration: none; color: var(--ink);
+    }
+    .nav-logo {
+      width: 36px; height: 36px; border-radius: 50%;
+      object-fit: cover; border: 1.5px solid rgba(26,34,24,0.12);
+    }
+    .nav-wordmark {
+      font-family: var(--serif); font-size: 1.05rem; font-weight: 600;
+      letter-spacing: 0.01em; color: var(--ink); line-height: 1;
+    }
+    .nav-wordmark span { display: block; font-size: 0.62rem; font-weight: 400; font-family: var(--sans); color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 1px; }
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none; color: var(--ink-mid);
+      font-size: 0.85rem; font-weight: 400; letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--berry); }
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+    .lang-bar { display: flex; gap: 0.25rem; }
+    .lang-btn {
+      background: none; border: 1px solid rgba(26,34,24,0.18);
+      border-radius: var(--r); padding: 0.2rem 0.45rem;
+      font-family: var(--sans); font-size: 0.72rem; font-weight: 500;
+      color: var(--muted); cursor: pointer; transition: all 0.2s;
+      letter-spacing: 0.04em;
+    }
+    .lang-btn.active, .lang-btn:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: all 0.3s; }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+    .nav-mobile {
+      display: none; position: absolute; top: 64px; left: 0; right: 0;
+      background: var(--cream-dk); border-top: 1px solid rgba(26,34,24,0.08);
+      padding: 1.5rem 2rem; list-style: none; gap: 1.5rem; flex-direction: column;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a { text-decoration: none; color: var(--ink); font-size: 1rem; font-weight: 400; }
+
+    /* ─── HERO: ASYMMETRIC OFFSET ───────────────── */
+    .hero {
+      min-height: 100vh; position: relative; display: flex;
+      align-items: center; background: var(--cream); overflow: hidden;
+      padding: 120px 0 80px;
+    }
+    .hero-inner {
+      max-width: 1280px; width: 100%; margin: 0 auto;
+      padding: 0 2rem; display: grid;
+      grid-template-columns: 1fr 1fr; gap: 0; align-items: center;
+    }
+    .hero-text { position: relative; z-index: 2; padding-right: 3rem; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--sans); font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--sage); margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: inline-block; width: 24px; height: 1px; background: var(--sage);
+    }
+    .hero-display {
+      font-family: var(--serif); font-size: clamp(3.5rem, 8vw, 7.5rem);
+      font-weight: 300; line-height: 0.95; letter-spacing: -0.02em;
+      color: var(--ink); margin-bottom: 0.15em;
+    }
+    .hero-display em { font-style: italic; color: var(--berry); }
+    .hero-tagline {
+      font-family: var(--serif); font-size: clamp(1rem, 1.6vw, 1.25rem);
+      font-weight: 300; font-style: italic; color: var(--ink-mid);
+      margin-bottom: 2.5rem; line-height: 1.5;
+      padding-left: 1px;
+    }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--ink); color: var(--cream); border: none;
+      padding: 0.85rem 1.75rem; font-family: var(--sans); font-size: 0.85rem;
+      font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer; border-radius: var(--r);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--berry); transform: translateY(-1px); }
+    .btn-ghost {
+      background: none; color: var(--ink); border: 1px solid rgba(26,34,24,0.25);
+      padding: 0.85rem 1.75rem; font-family: var(--sans); font-size: 0.85rem;
+      font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer; border-radius: var(--r);
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--ink); background: rgba(26,34,24,0.05); }
+    .hero-photo-zone {
+      position: relative; height: clamp(500px, 80vh, 720px);
+      overflow: visible;
+    }
+    .hero-photo {
+      position: absolute; left: -2rem; top: 0; right: -3rem; bottom: 0;
+      overflow: hidden; border-radius: 0;
+    }
+    .hero-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .hero-photo-ph {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #b8d8a0 0%, #5a8040 40%, #3a5028 70%, #1e3010 100%);
+      display: flex; align-items: flex-end; padding: 2rem;
+    }
+    .hero-badge {
+      background: rgba(248,245,239,0.92); backdrop-filter: blur(4px);
+      border-radius: var(--r); padding: 0.75rem 1rem;
+    }
+    .hero-badge span {
+      display: block; font-family: var(--sans); font-size: 0.7rem;
+      font-weight: 500; color: var(--sage); letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .hero-badge strong {
+      font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--ink);
+    }
+    .hero-scroll-cue {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: var(--muted); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+      font-family: var(--sans); animation: cueFloat 2s ease-in-out infinite;
+    }
+    .hero-scroll-cue::after { content: '↓'; font-size: 1rem; }
+    @keyframes cueFloat { 0%,100%{opacity:0.4;transform:translateX(-50%) translateY(0)} 50%{opacity:1;transform:translateX(-50%) translateY(4px)} }
+    @media (max-width: 768px) {
+      .hero { padding: 100px 0 60px; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-text { padding-right: 0; order: 2; }
+      .hero-photo-zone { height: 280px; order: 1; margin: 0 -2rem 2rem; }
+      .hero-photo { left: 0; right: 0; }
+      .hero-display { font-size: clamp(2.8rem, 12vw, 4rem); }
+    }
+
+    /* ─── STATS STRIP ───────────────────────────── */
+    .stats { background: var(--ink); padding: 2rem 0; }
+    .stats-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 2rem;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; border-left: 1px solid rgba(248,245,239,0.08);
+    }
+    .stat-item {
+      padding: 0.75rem 2rem; border-right: 1px solid rgba(248,245,239,0.08);
+    }
+    .stat-num {
+      font-family: var(--serif); font-size: 2rem; font-weight: 600;
+      color: var(--cream); display: block; line-height: 1;
+    }
+    .stat-label { font-family: var(--sans); font-size: 0.72rem; color: rgba(248,245,239,0.5); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 0.25rem; }
+    @media (max-width: 600px) {
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ─── SECTION SHARED ────────────────────────── */
+    .section-inner { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    .section-header { margin-bottom: 3rem; }
+    .section-eyebrow {
+      display: inline-block; font-family: var(--sans); font-size: 0.72rem;
+      font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--sage); margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--serif); font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+      font-weight: 300; line-height: 1.15; color: var(--ink);
+    }
+    .section-title em { font-style: italic; color: var(--berry); }
+    .section-lead {
+      font-family: var(--serif); font-size: 1.05rem; font-weight: 300; font-style: italic;
+      color: var(--ink-mid); line-height: 1.65; margin-top: 0.75rem;
+      max-width: 600px;
+    }
+
+    /* ─── PRODUCTS ──────────────────────────────── */
+    .products { padding: 6rem 0; background: var(--cream); }
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+    .prod-card {
+      background: var(--cream-dk); padding: 2.5rem 2rem;
+      border-right: 1px solid rgba(26,34,24,0.08);
+      transition: background 0.2s;
+    }
+    .prod-card:last-child { border-right: none; }
+    .prod-card:hover { background: var(--cream-3); }
+    .prod-color-bar {
+      height: 3px; width: 100%; margin-bottom: 2rem;
+    }
+    .prod-card:nth-child(1) .prod-color-bar { background: var(--berry); }
+    .prod-card:nth-child(2) .prod-color-bar { background: var(--current); }
+    .prod-card:nth-child(3) .prod-color-bar { background: var(--bark); }
+    .prod-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+    .prod-name {
+      font-family: var(--serif); font-size: 1.4rem; font-weight: 600;
+      color: var(--ink); margin-bottom: 0.5rem; line-height: 1.2;
+    }
+    .prod-season {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: var(--sans); font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .prod-card:nth-child(1) .prod-season { color: var(--berry); }
+    .prod-card:nth-child(2) .prod-season { color: var(--current); }
+    .prod-card:nth-child(3) .prod-season { color: var(--bark); }
+    .prod-desc {
+      font-family: var(--sans); font-size: 0.9rem; line-height: 1.65;
+      color: var(--ink-mid); margin-bottom: 1.25rem;
+    }
+    .prod-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .prod-tag {
+      font-family: var(--sans); font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      background: var(--cream); border: 1px solid rgba(26,34,24,0.12);
+      border-radius: var(--r); padding: 0.25rem 0.6rem; color: var(--ink-mid);
+    }
+    @media (max-width: 768px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .prod-card { border-right: none; border-bottom: 1px solid rgba(26,34,24,0.08); }
+      .prod-card:last-child { border-bottom: none; }
+    }
+
+    /* ─── TARINA / STORY ────────────────────────── */
+    .story { padding: 6rem 0; background: var(--cream-dk); }
+    .story-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+    }
+    .story-photo-wrap {
+      position: relative; aspect-ratio: 4/5; overflow: hidden;
+    }
+    .story-photo-wrap img, .story-photo-ph {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .story-photo-ph {
+      background: linear-gradient(160deg, #8ab870 0%, #4a6830 50%, #2a3e18 100%);
+    }
+    .story-content { padding-top: 1rem; }
+    .story-content p {
+      font-family: var(--serif); font-size: 1.05rem; font-weight: 300;
+      line-height: 1.8; color: var(--ink); margin-bottom: 1.5rem;
+    }
+    .story-content p:first-of-type::first-letter {
+      font-size: 3.5rem; font-weight: 600; line-height: 0.85;
+      float: left; margin-right: 0.1em; margin-top: 0.1em;
+      color: var(--berry);
+    }
+    .story-quote {
+      border-left: 2px solid var(--berry); padding-left: 1.25rem;
+      margin: 2rem 0;
+    }
+    .story-quote p {
+      font-style: italic; font-size: 1.1rem; color: var(--ink); margin-bottom: 0;
+    }
+    .story-sig {
+      display: flex; align-items: center; gap: 0.75rem; margin-top: 1.5rem;
+    }
+    .story-sig-bar { width: 32px; height: 1px; background: var(--ink-mid); }
+    .story-sig span { font-family: var(--sans); font-size: 0.8rem; color: var(--muted); letter-spacing: 0.06em; }
+    @media (max-width: 768px) {
+      .story-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    /* ─── POHJOINEN KAUSI (signature) ──────────── */
+    .kausi { padding: 6rem 0; background: var(--ink); }
+    .kausi .section-eyebrow { color: rgba(248,245,239,0.5); }
+    .kausi .section-title { color: var(--cream); }
+    .kausi .section-lead { color: rgba(248,245,239,0.6); max-width: 520px; }
+    .kausi-chart { margin-top: 3rem; }
+    .kausi-row { display: flex; align-items: center; gap: 0; margin-bottom: 0; }
+    .kausi-row + .kausi-row { border-top: 1px solid rgba(248,245,239,0.06); }
+    .kausi-label {
+      width: 180px; flex-shrink: 0; padding: 1.25rem 1.5rem 1.25rem 0;
+      display: flex; flex-direction: column; gap: 0.2rem;
+    }
+    .kausi-prod-name {
+      font-family: var(--serif); font-size: 1rem; font-weight: 400;
+      color: var(--cream); line-height: 1.2;
+    }
+    .kausi-prod-fi { font-family: var(--sans); font-size: 0.7rem; color: rgba(248,245,239,0.45); letter-spacing: 0.04em; }
+    .kausi-months-wrap {
+      flex: 1; position: relative; height: 64px;
+      display: grid; grid-template-columns: repeat(12, 1fr);
+      gap: 2px;
+    }
+    .kausi-month {
+      background: rgba(248,245,239,0.04);
+      border-radius: 1px;
+      position: relative;
+      display: flex; align-items: flex-end; justify-content: center;
+      padding-bottom: 4px;
+    }
+    .kausi-month-lbl {
+      font-family: var(--sans); font-size: 0.6rem; font-weight: 400;
+      color: rgba(248,245,239,0.3); letter-spacing: 0.02em;
+    }
+    .kausi-month.active-berry { background: rgba(200,48,32,0.35); }
+    .kausi-month.active-berry .kausi-month-lbl { color: rgba(248,245,239,0.7); }
+    .kausi-month.peak-berry { background: rgba(200,48,32,0.80); }
+    .kausi-month.peak-berry .kausi-month-lbl { color: rgba(248,245,239,0.95); }
+    .kausi-month.active-current { background: rgba(92,42,96,0.50); }
+    .kausi-month.active-current .kausi-month-lbl { color: rgba(248,245,239,0.7); }
+    .kausi-month.peak-current { background: rgba(92,42,96,0.85); }
+    .kausi-month.peak-current .kausi-month-lbl { color: rgba(248,245,239,0.95); }
+    .kausi-month.active-bark { background: rgba(184,144,48,0.35); }
+    .kausi-month.active-bark .kausi-month-lbl { color: rgba(248,245,239,0.7); }
+    .kausi-month.peak-bark { background: rgba(184,144,48,0.80); }
+    .kausi-month.peak-bark .kausi-month-lbl { color: rgba(248,245,239,0.95); }
+    .kausi-legend {
+      display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 2rem;
+      padding-top: 2rem; border-top: 1px solid rgba(248,245,239,0.08);
+    }
+    .legend-item { display: flex; align-items: center; gap: 0.6rem; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 1px; flex-shrink: 0; }
+    .legend-dot.berry { background: rgba(200,48,32,0.80); }
+    .legend-dot.current { background: rgba(92,42,96,0.85); }
+    .legend-dot.bark { background: rgba(184,144,48,0.80); }
+    .legend-text { font-family: var(--sans); font-size: 0.75rem; color: rgba(248,245,239,0.55); letter-spacing: 0.04em; }
+    @media (max-width: 640px) {
+      .kausi-label { width: 120px; }
+      .kausi-prod-fi { display: none; }
+    }
+
+    /* ─── OSTAMINEN / HOW TO BUY ────────────────── */
+    .ostaminen { padding: 6rem 0; background: var(--cream); }
+    .osta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .osta-card {
+      background: var(--cream-dk); padding: 2rem 1.75rem;
+    }
+    .osta-num {
+      font-family: var(--serif); font-size: 3rem; font-weight: 300;
+      color: var(--berry); line-height: 1; margin-bottom: 0.75rem;
+      opacity: 0.4;
+    }
+    .osta-title {
+      font-family: var(--serif); font-size: 1.2rem; font-weight: 600;
+      color: var(--ink); margin-bottom: 0.75rem;
+    }
+    .osta-desc { font-family: var(--sans); font-size: 0.9rem; line-height: 1.65; color: var(--ink-mid); }
+    @media (max-width: 640px) {
+      .osta-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── CONTACT ───────────────────────────────── */
+    .contact { padding: 6rem 0; background: var(--cream-dk); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .contact-heading {
+      font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 300; line-height: 1.2; color: var(--ink); margin-bottom: 1.5rem;
+    }
+    .contact-heading em { font-style: italic; color: var(--berry); }
+    .contact-intro { font-family: var(--sans); font-size: 0.95rem; line-height: 1.7; color: var(--ink-mid); margin-bottom: 2rem; }
+    .contact-rows { display: flex; flex-direction: column; gap: 0; }
+    .contact-row {
+      display: flex; gap: 1rem; align-items: baseline;
+      padding: 1rem 0; border-bottom: 1px solid rgba(26,34,24,0.08);
+    }
+    .contact-row:last-child { border-bottom: none; }
+    .cr-label {
+      font-family: var(--sans); font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+      min-width: 80px; flex-shrink: 0; padding-top: 1px;
+    }
+    .cr-val {
+      font-family: var(--serif); font-size: 1rem; font-weight: 400; color: var(--ink);
+    }
+    .cr-val a { color: var(--ink); text-decoration: none; transition: color 0.2s; }
+    .cr-val a:hover { color: var(--berry); }
+    .contact-map-area {
+      border: 1px solid rgba(26,34,24,0.10); overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .contact-map-area iframe { width: 100%; height: 100%; border: none; filter: saturate(0.7) contrast(0.9); }
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    /* ─── FOOTER ────────────────────────────────── */
+    .footer { background: var(--ink); color: rgba(248,245,239,0.45); padding: 2.5rem 2rem; }
+    .footer-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-brand { font-family: var(--serif); font-size: 1rem; font-weight: 400; color: rgba(248,245,239,0.6); }
+    .footer-demo { font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.04em; }
+    .footer-demo a { color: rgba(248,245,239,0.35); text-decoration: none; }
+    .footer-demo a:hover { color: rgba(248,245,239,0.7); }
+
+    /* ─── FADE IN ANIMATION ──────────────────────── */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <img src="images/logo.jpg" alt="Variksen Luomu logo" class="nav-logo" onerror="this.style.display='none'">
+        <div class="nav-wordmark">
+          Variksen Luomu
+          <span class="lang-fi">Marjatila</span>
+          <span class="lang-sv">Bärgård</span>
+          <span class="lang-en">Berry Farm</span>
+        </div>
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#tuotteet" class="lang-fi">Tuotteet</a><a href="#tuotteet" class="lang-sv">Produkter</a><a href="#tuotteet" class="lang-en">Products</a></li>
+          <li><a href="#tila" class="lang-fi">Tila</a><a href="#tila" class="lang-sv">Gården</a><a href="#tila" class="lang-en">The Farm</a></li>
+          <li><a href="#kausi" class="lang-fi">Kausi</a><a href="#kausi" class="lang-sv">Säsong</a><a href="#kausi" class="lang-en">Season</a></li>
+          <li><a href="#yhteystiedot" class="lang-fi">Yhteystiedot</a><a href="#yhteystiedot" class="lang-sv">Kontakt</a><a href="#yhteystiedot" class="lang-en">Contact</a></li>
+        </ul>
+        <div class="lang-bar">
+          <button class="lang-btn active" data-l="fi">FI</button>
+          <button class="lang-btn" data-l="sv">SV</button>
+          <button class="lang-btn" data-l="en">EN</button>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Valikko">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <ul class="nav-mobile" id="nav-mobile">
+      <li><a href="#tuotteet" class="lang-fi">Tuotteet</a><a href="#tuotteet" class="lang-sv">Produkter</a><a href="#tuotteet" class="lang-en">Products</a></li>
+      <li><a href="#tila" class="lang-fi">Tila</a><a href="#tila" class="lang-sv">Gården</a><a href="#tila" class="lang-en">The Farm</a></li>
+      <li><a href="#kausi" class="lang-fi">Kausi</a><a href="#kausi" class="lang-sv">Säsong</a><a href="#kausi" class="lang-en">Season</a></li>
+      <li><a href="#yhteystiedot" class="lang-fi">Yhteystiedot</a><a href="#yhteystiedot" class="lang-sv">Kontakt</a><a href="#yhteystiedot" class="lang-en">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO: ASYMMETRIC OFFSET -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text fade-up">
+        <span class="hero-eyebrow lang-fi">Pyhäjärvi · Pohjois-Pohjanmaa · Luomu</span>
+        <span class="hero-eyebrow lang-sv">Pyhäjärvi · Norra Österbotten · Ekologiskt</span>
+        <span class="hero-eyebrow lang-en">Pyhäjärvi · Northern Ostrobothnia · Organic</span>
+        <h1 class="hero-display">
+          Variksen<br>
+          <em>Luomu</em>
+        </h1>
+        <p class="hero-tagline lang-fi">Pohjoisen maan makua suoraan tilalta.<br>Luomumansikkaa, -mustaherukkaa ja koivuklapeja Pyhäjärveltä.</p>
+        <p class="hero-tagline lang-sv">Smaker från nordlig jord, direkt från gården.<br>Ekologiska jordgubbar, svarta vinbär och björkved från Pyhäjärvi.</p>
+        <p class="hero-tagline lang-en">Taste of the northern land, straight from the farm.<br>Organic strawberries, blackcurrants and birch firewood from Pyhäjärvi.</p>
+        <div class="hero-ctas">
+          <a href="#tuotteet" class="btn-primary lang-fi">Tuotteet</a>
+          <a href="#tuotteet" class="btn-primary lang-sv">Produkter</a>
+          <a href="#tuotteet" class="btn-primary lang-en">Products</a>
+          <a href="#yhteystiedot" class="btn-ghost lang-fi">Yhteystiedot</a>
+          <a href="#yhteystiedot" class="btn-ghost lang-sv">Kontakt</a>
+          <a href="#yhteystiedot" class="btn-ghost lang-en">Contact</a>
+        </div>
+      </div>
+      <div class="hero-photo-zone">
+        <div class="hero-photo">
+          <div class="hero-photo-ph">
+            <div class="hero-badge">
+              <span class="lang-fi">Luomumansikka</span>
+              <span class="lang-sv">Ekologisk jordgubbe</span>
+              <span class="lang-en">Organic Strawberry</span>
+              <strong>Pyhäjärvi</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-cue">
+      <span class="lang-fi">Tutustu</span>
+      <span class="lang-sv">Utforska</span>
+      <span class="lang-en">Explore</span>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <section class="stats">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <span class="stat-num lang-fi">3</span>
+        <span class="stat-num lang-sv">3</span>
+        <span class="stat-num lang-en">3</span>
+        <span class="stat-label lang-fi">Päätuotetta</span>
+        <span class="stat-label lang-sv">Huvudprodukter</span>
+        <span class="stat-label lang-en">Main Products</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">100%</span>
+        <span class="stat-label lang-fi">Luomu</span>
+        <span class="stat-label lang-sv">Ekologiskt</span>
+        <span class="stat-label lang-en">Organic</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num lang-fi">Suora</span>
+        <span class="stat-num lang-sv">Direkt</span>
+        <span class="stat-num lang-en">Direct</span>
+        <span class="stat-label lang-fi">Tilamyynti</span>
+        <span class="stat-label lang-sv">Gårdsförsäljning</span>
+        <span class="stat-label lang-en">Farm sales</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num lang-fi">Pyhäjärvi</span>
+        <span class="stat-num lang-sv">Pyhäjärvi</span>
+        <span class="stat-num lang-en">Pyhäjärvi</span>
+        <span class="stat-label lang-fi">Pohjois-Pohjanmaa</span>
+        <span class="stat-label lang-sv">Norra Österbotten</span>
+        <span class="stat-label lang-en">Northern Ostrobothnia</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products" id="tuotteet">
+    <div class="section-inner">
+      <div class="section-header fade-up">
+        <span class="section-eyebrow lang-fi">Tilalta tilallesi</span>
+        <span class="section-eyebrow lang-sv">Från gård till ditt bord</span>
+        <span class="section-eyebrow lang-en">From farm to you</span>
+        <h2 class="section-title lang-fi">Tuotteet</h2>
+        <h2 class="section-title lang-sv">Produkter</h2>
+        <h2 class="section-title lang-en">Products</h2>
+        <p class="section-lead lang-fi">Pyhäjärven pitkä valo, puhdas ilma ja orgaaninen viljely tuottavat raaka-aineita, jotka maistuvat paremmilta.</p>
+        <p class="section-lead lang-sv">Pyhäjärvis långa sommardagar, rena luft och ekologisk odling ger råvaror med distinkt smak.</p>
+        <p class="section-lead lang-en">Pyhäjärvi's long summer days, clean air and organic cultivation produce ingredients that simply taste better.</p>
+      </div>
+      <div class="products-grid fade-up">
+
+        <!-- MANSIKKA -->
+        <div class="prod-card">
+          <div class="prod-color-bar"></div>
+          <span class="prod-icon">🍓</span>
+          <h3 class="prod-name lang-fi">Luomumansikka</h3>
+          <h3 class="prod-name lang-sv">Ekologisk jordgubbe</h3>
+          <h3 class="prod-name lang-en">Organic Strawberry</h3>
+          <span class="prod-season lang-fi">Kesäkuu – Elokuu</span>
+          <span class="prod-season lang-sv">Juni – Augusti</span>
+          <span class="prod-season lang-en">June – August</span>
+          <p class="prod-desc lang-fi">Pohjoinen kesä kypsyttää mansikat hitaasti ja makeasti. Myymme mansikkaa suoraan tilalta sekä itsepoimintana. Luomumansikka on raikasta ja aromikasta ilman kemiallisia torjunta-aineita.</p>
+          <p class="prod-desc lang-sv">Den nordliga sommaren låter jordgubbarna mogna långsamt och sött. Vi säljer jordgubbar direkt från gården och via självplockning. Ekologiska jordgubbar utan kemikalier.</p>
+          <p class="prod-desc lang-en">The northern summer slowly ripens our strawberries to a deep sweetness. We sell direct from the farm and through self-picking. Organic, chemical-free.</p>
+          <div class="prod-tags">
+            <span class="prod-tag lang-fi">Suoramyynti</span>
+            <span class="prod-tag lang-sv">Direktförsäljning</span>
+            <span class="prod-tag lang-en">Direct sales</span>
+            <span class="prod-tag lang-fi">Itsepoiminta</span>
+            <span class="prod-tag lang-sv">Självplockning</span>
+            <span class="prod-tag lang-en">Self-picking</span>
+            <span class="prod-tag lang-fi">Luomusertifioitu</span>
+            <span class="prod-tag lang-sv">Ekocertifierat</span>
+            <span class="prod-tag lang-en">Certified organic</span>
+          </div>
+        </div>
+
+        <!-- MUSTAHERUKKA -->
+        <div class="prod-card">
+          <div class="prod-color-bar"></div>
+          <span class="prod-icon">⚫</span>
+          <h3 class="prod-name lang-fi">Luomumustaherkukka</h3>
+          <h3 class="prod-name lang-sv">Ekologisk svart vinbär</h3>
+          <h3 class="prod-name lang-en">Organic Blackcurrant</h3>
+          <span class="prod-season lang-fi">Heinäkuu – Elokuu</span>
+          <span class="prod-season lang-sv">Juli – Augusti</span>
+          <span class="prod-season lang-en">July – August</span>
+          <p class="prod-desc lang-fi">Mustaherukka on ravintorikas pohjoisen marjojen kruunu. Kasvatamme mustaherukkaa luonnonmukaisesti Pyhäjärven puhtaassa ympäristössä. Itsepoimintana suoraan pensailta.</p>
+          <p class="prod-desc lang-sv">Svarta vinbär är kronjuvelen bland nordliga bär. Vi odlar ekologiska svarta vinbär i Pyhäjärvis rena miljö. Plockas direkt från buskarna.</p>
+          <p class="prod-desc lang-en">Blackcurrant is the crown jewel of northern berries, packed with vitamins. We grow them organically in Pyhäjärvi's clean environment. Available for self-picking.</p>
+          <div class="prod-tags">
+            <span class="prod-tag lang-fi">Itsepoiminta</span>
+            <span class="prod-tag lang-sv">Självplockning</span>
+            <span class="prod-tag lang-en">Self-picking</span>
+            <span class="prod-tag lang-fi">Runsaasti C-vitamiinia</span>
+            <span class="prod-tag lang-sv">Rik på C-vitamin</span>
+            <span class="prod-tag lang-en">Rich in vitamin C</span>
+          </div>
+        </div>
+
+        <!-- KOIVUKLAPIT -->
+        <div class="prod-card">
+          <div class="prod-color-bar"></div>
+          <span class="prod-icon">🪵</span>
+          <h3 class="prod-name lang-fi">Koivuklapit</h3>
+          <h3 class="prod-name lang-sv">Björkved</h3>
+          <h3 class="prod-name lang-en">Birch Firewood</h3>
+          <span class="prod-season lang-fi">Syyskuu – Huhtikuu</span>
+          <span class="prod-season lang-sv">September – April</span>
+          <span class="prod-season lang-en">September – April</span>
+          <p class="prod-desc lang-fi">Tilan omasta koivumetsästä. Halot ovat kuivat, pilkotut ja valmiina lämmittämään. Pohjois-Pohjanmaalla koivu kasvaa hitaasti ja tiheäksi, mikä tekee siitä erinomaisen lämpöpuun.</p>
+          <p class="prod-desc lang-sv">Från gårdens egen björkskog. Veden är torr, huggen och redo att värma. I Norra Österbotten växer björken långsamt och tätt, vilket gör den till utmärkt ved.</p>
+          <p class="prod-desc lang-en">From our own birch forest. The wood is dry, split and ready to burn. Northern Ostrobothnia's slow-growing birch is dense and makes excellent firewood.</p>
+          <div class="prod-tags">
+            <span class="prod-tag lang-fi">Tilalta</span>
+            <span class="prod-tag lang-sv">Från gården</span>
+            <span class="prod-tag lang-en">From the farm</span>
+            <span class="prod-tag lang-fi">Kuiva</span>
+            <span class="prod-tag lang-sv">Torr</span>
+            <span class="prod-tag lang-en">Dry &amp; ready</span>
+            <span class="prod-tag lang-fi">Pilkottuna</span>
+            <span class="prod-tag lang-sv">Huggen</span>
+            <span class="prod-tag lang-en">Split</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY / TARINA -->
+  <section class="story" id="tila">
+    <div class="section-inner">
+      <div class="story-grid">
+        <div class="story-photo-wrap fade-up">
+          <div class="story-photo-ph"></div>
+        </div>
+        <div class="story-content fade-up">
+          <span class="section-eyebrow lang-fi">Tilan tarina</span>
+          <span class="section-eyebrow lang-sv">Gårdens historia</span>
+          <span class="section-eyebrow lang-en">Our Story</span>
+          <h2 class="section-title lang-fi" style="margin-bottom:1.5rem">Pieni tila,<br>suuri luonto</h2>
+          <h2 class="section-title lang-sv" style="margin-bottom:1.5rem">Liten gård,<br>stor natur</h2>
+          <h2 class="section-title lang-en" style="margin-bottom:1.5rem">Small farm,<br>vast nature</h2>
+          <p class="lang-fi">Variksen Luomu sijaitsee Pohjois-Pohjanmaalla Pyhäjärvellä, kauniissa järvimaisemassa. Tila on Ari Variksen perheyritys, jossa maanviljely ja metsanhoito kulkevat rinnakkain.</p>
+          <p class="lang-sv">Variksen Luomu ligger vid sjölandskapet i Pyhäjärvi, Norra Österbotten. Gården är Ari Varis familjföretag, där jordbruk och skogsvård går hand i hand.</p>
+          <p class="lang-en">Variksen Luomu is located in the beautiful lake landscape of Pyhäjärvi, Northern Ostrobothnia. The farm is Ari Varis's family enterprise, where agriculture and forest management work side by side.</p>
+          <p class="lang-fi">Kesällä pellot kukkivat mansikassa ja mustaherukkametsät tuoksuvat. Syksyllä talteen otettavat koivuklapit pitävät lähialueen kodit lämpiminä talven läpi. Luomuviljely tarkoittaa meille rehellisyyttä: ei kemiallisia torjunta-aineita, ei keinotekoisia lannoitteita.</p>
+          <p class="lang-sv">På sommaren blommar jordgubbsfälten och svartvinbärsbuskarna doftar. På hösten hämtas björkveden som håller hemmen i trakten varma hela vintern. Ekologisk odling betyder för oss ärlighet: inga kemiska bekämpningsmedel, inga konstgödselmedel.</p>
+          <p class="lang-en">In summer the strawberry fields bloom and the blackcurrant rows fill the air with fragrance. In autumn the birch firewood is collected, ready to keep the surrounding homes warm through winter. Organic farming means honesty to us: no chemical pesticides, no artificial fertilizers.</p>
+          <div class="story-quote lang-fi">
+            <p>"Kesäaikaan yhteyttä puhelimitse. Tervetuloa poimintaan."</p>
+          </div>
+          <div class="story-quote lang-sv">
+            <p>"Ring oss på sommaren. Välkommen att plocka."</p>
+          </div>
+          <div class="story-quote lang-en">
+            <p>"In summer, reach us by phone. You're welcome to come and pick."</p>
+          </div>
+          <div class="story-sig">
+            <div class="story-sig-bar"></div>
+            <span>Ari Varis – Variksen Luomu, Pyhäjärvi</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POHJOINEN KAUSI — SIGNATURE COMPONENT -->
+  <section class="kausi" id="kausi">
+    <div class="section-inner">
+      <div class="section-header fade-up">
+        <span class="section-eyebrow lang-fi">Vuoden rytmi</span>
+        <span class="section-eyebrow lang-sv">Årets rytm</span>
+        <span class="section-eyebrow lang-en">Year's rhythm</span>
+        <h2 class="section-title lang-fi">Pohjoinen kausi</h2>
+        <h2 class="section-title lang-sv">Nordlig säsong</h2>
+        <h2 class="section-title lang-en">Northern Season</h2>
+        <p class="section-lead lang-fi">Pohjois-Pohjanmaalla kesä on lyhyt mutta intensiivinen. Marjasadon lisäksi koivumetsä tarjoaa talven lämmön. Näin tuotteet rytmittävät vuoden.</p>
+        <p class="section-lead lang-sv">I Norra Österbotten är sommaren kort men intensiv. Förutom bärskörden ger björkskogen vinter-värmen. Så här rytmerar produkterna året.</p>
+        <p class="section-lead lang-en">In Northern Ostrobothnia summer is short but intense. Besides the berry harvest, the birch forest provides winter warmth. This is how products shape the year.</p>
+      </div>
+      <div class="kausi-chart fade-up">
+        <!-- Mansikka row -->
+        <div class="kausi-row">
+          <div class="kausi-label">
+            <span class="kausi-prod-name lang-fi">Luomumansikka</span>
+            <span class="kausi-prod-name lang-sv">Ekol. jordgubbe</span>
+            <span class="kausi-prod-name lang-en">Organic strawberry</span>
+            <span class="kausi-prod-fi lang-fi">Kesäkuu – Elokuu</span>
+            <span class="kausi-prod-fi lang-sv">Juni – Augusti</span>
+            <span class="kausi-prod-fi lang-en">June – August</span>
+          </div>
+          <div class="kausi-months-wrap">
+            <div class="kausi-month"><span class="kausi-month-lbl">Tam</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Hel</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Maa</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Huh</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Tou</span></div>
+            <div class="kausi-month active-berry"><span class="kausi-month-lbl">Kes</span></div>
+            <div class="kausi-month peak-berry"><span class="kausi-month-lbl">Hei</span></div>
+            <div class="kausi-month active-berry"><span class="kausi-month-lbl">Elo</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Syy</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Lok</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Mar</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Jou</span></div>
+          </div>
+        </div>
+        <!-- Mustaherukka row -->
+        <div class="kausi-row">
+          <div class="kausi-label">
+            <span class="kausi-prod-name lang-fi">Luomumustaherkukka</span>
+            <span class="kausi-prod-name lang-sv">Ekol. svart vinbär</span>
+            <span class="kausi-prod-name lang-en">Organic blackcurrant</span>
+            <span class="kausi-prod-fi lang-fi">Heinäkuu – Elokuu</span>
+            <span class="kausi-prod-fi lang-sv">Juli – Augusti</span>
+            <span class="kausi-prod-fi lang-en">July – August</span>
+          </div>
+          <div class="kausi-months-wrap">
+            <div class="kausi-month"><span class="kausi-month-lbl">Tam</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Hel</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Maa</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Huh</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Tou</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Kes</span></div>
+            <div class="kausi-month peak-current"><span class="kausi-month-lbl">Hei</span></div>
+            <div class="kausi-month active-current"><span class="kausi-month-lbl">Elo</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Syy</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Lok</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Mar</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Jou</span></div>
+          </div>
+        </div>
+        <!-- Koivuklapit row -->
+        <div class="kausi-row">
+          <div class="kausi-label">
+            <span class="kausi-prod-name lang-fi">Koivuklapit</span>
+            <span class="kausi-prod-name lang-sv">Björkved</span>
+            <span class="kausi-prod-name lang-en">Birch firewood</span>
+            <span class="kausi-prod-fi lang-fi">Syys – Huhtikuu</span>
+            <span class="kausi-prod-fi lang-sv">Sept – April</span>
+            <span class="kausi-prod-fi lang-en">Sept – April</span>
+          </div>
+          <div class="kausi-months-wrap">
+            <div class="kausi-month active-bark"><span class="kausi-month-lbl">Tam</span></div>
+            <div class="kausi-month active-bark"><span class="kausi-month-lbl">Hel</span></div>
+            <div class="kausi-month active-bark"><span class="kausi-month-lbl">Maa</span></div>
+            <div class="kausi-month active-bark"><span class="kausi-month-lbl">Huh</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Tou</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Kes</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Hei</span></div>
+            <div class="kausi-month"><span class="kausi-month-lbl">Elo</span></div>
+            <div class="kausi-month active-bark"><span class="kausi-month-lbl">Syy</span></div>
+            <div class="kausi-month peak-bark"><span class="kausi-month-lbl">Lok</span></div>
+            <div class="kausi-month peak-bark"><span class="kausi-month-lbl">Mar</span></div>
+            <div class="kausi-month active-bark"><span class="kausi-month-lbl">Jou</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="kausi-legend fade-up">
+        <div class="legend-item">
+          <div class="legend-dot berry"></div>
+          <span class="legend-text lang-fi">Mansikka (pääsesonki)</span>
+          <span class="legend-text lang-sv">Jordgubbe (högsäsong)</span>
+          <span class="legend-text lang-en">Strawberry (peak season)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot current"></div>
+          <span class="legend-text lang-fi">Mustaherukka</span>
+          <span class="legend-text lang-sv">Svart vinbär</span>
+          <span class="legend-text lang-en">Blackcurrant</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot bark"></div>
+          <span class="legend-text lang-fi">Koivuklapit (saatavilla)</span>
+          <span class="legend-text lang-sv">Björkved (tillgänglig)</span>
+          <span class="legend-text lang-en">Birch firewood (available)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO BUY -->
+  <section class="ostaminen" id="ostaminen">
+    <div class="section-inner">
+      <div class="section-header fade-up">
+        <span class="section-eyebrow lang-fi">Tilaaminen</span>
+        <span class="section-eyebrow lang-sv">Beställning</span>
+        <span class="section-eyebrow lang-en">Ordering</span>
+        <h2 class="section-title lang-fi">Miten ostaa?</h2>
+        <h2 class="section-title lang-sv">Hur köper man?</h2>
+        <h2 class="section-title lang-en">How to buy?</h2>
+      </div>
+      <div class="osta-grid fade-up">
+        <div class="osta-card">
+          <div class="osta-num">01</div>
+          <h3 class="osta-title lang-fi">Soita kesällä</h3>
+          <h3 class="osta-title lang-sv">Ring på sommaren</h3>
+          <h3 class="osta-title lang-en">Call in summer</h3>
+          <p class="osta-desc lang-fi">Mansikka- ja mustaherkukkakauden alussa otathan yhteyttä puhelimitse. Kerromme poimintatilanteen ja sadon määrän. Puh. 040 096 6184.</p>
+          <p class="osta-desc lang-sv">I början av säsongen ber vi dig ringa. Vi berättar om plocksituationen och hur mycket som finns. Tel. 040 096 6184.</p>
+          <p class="osta-desc lang-en">At the start of the berry season, please call ahead. We'll let you know the picking situation and harvest volumes. Tel. 040 096 6184.</p>
+        </div>
+        <div class="osta-card">
+          <div class="osta-num">02</div>
+          <h3 class="osta-title lang-fi">Tule poimintaan</h3>
+          <h3 class="osta-title lang-sv">Kom och plocka</h3>
+          <h3 class="osta-title lang-en">Come and pick</h3>
+          <p class="osta-desc lang-fi">Itsepoiminta on hauskaa koko perheelle. Tulemme mukaan pellolle, opastamme ja annatte lasten nauttia pohjoisen kesästä suoraan pensailta.</p>
+          <p class="osta-desc lang-sv">Självplockning är roligt för hela familjen. Vi visar er fälten och hjälper er. Låt barnen njuta av det nordliga sommarens smak direkt från buskarna.</p>
+          <p class="osta-desc lang-en">Self-picking is fun for the whole family. We'll walk you to the fields and guide you. Let the children enjoy northern summer flavors straight from the bushes.</p>
+        </div>
+        <div class="osta-card">
+          <div class="osta-num">03</div>
+          <h3 class="osta-title lang-fi">Klapit tilauksesta</h3>
+          <h3 class="osta-title lang-sv">Ved på beställning</h3>
+          <h3 class="osta-title lang-en">Firewood to order</h3>
+          <p class="osta-desc lang-fi">Koivuklapit myydään syksystä kevääseen. Halot toimitetaan kuivina ja pilkottuna. Ota yhteyttä sähköpostitse tai puhelimitse, sovitaan toimitus.</p>
+          <p class="osta-desc lang-sv">Björkveden säljs från höst till vår, torr och huggen. Kontakta oss via e-post eller telefon, så ordnar vi leveransen.</p>
+          <p class="osta-desc lang-en">Birch firewood is sold from autumn through spring, dry and split. Contact us by email or phone to arrange delivery.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="yhteystiedot">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div class="fade-up">
+          <h2 class="contact-heading lang-fi">Ota <em>yhteyttä</em></h2>
+          <h2 class="contact-heading lang-sv">Ta <em>kontakt</em></h2>
+          <h2 class="contact-heading lang-en">Get in <em>touch</em></h2>
+          <p class="contact-intro lang-fi">Kesäaikaan tavoitat meidät parhaiten puhelimitse. Koivuklapitilauksia voit laittaa myös sähköpostilla. Löydät meidät myös Facebookista.</p>
+          <p class="contact-intro lang-sv">På sommaren når du oss bäst via telefon. Björkvedsbeställningar kan du också skicka via e-post. Du hittar oss även på Facebook.</p>
+          <p class="contact-intro lang-en">In summer the best way to reach us is by phone. Firewood orders can also be sent by email. You can also find us on Facebook.</p>
+          <div class="contact-rows">
+            <div class="contact-row">
+              <span class="cr-label lang-fi">Puhelin</span>
+              <span class="cr-label lang-sv">Telefon</span>
+              <span class="cr-label lang-en">Phone</span>
+              <span class="cr-val"><a href="tel:+358400966184">040 096 6184</a></span>
+            </div>
+            <div class="contact-row">
+              <span class="cr-label">Email</span>
+              <span class="cr-val"><a href="mailto:arivaris64@gmail.com">arivaris64@gmail.com</a></span>
+            </div>
+            <div class="contact-row">
+              <span class="cr-label lang-fi">Osoite</span>
+              <span class="cr-label lang-sv">Adress</span>
+              <span class="cr-label lang-en">Address</span>
+              <span class="cr-val">Kumpulantie 48, 86800 Pyhäjärvi</span>
+            </div>
+            <div class="contact-row">
+              <span class="cr-label">Facebook</span>
+              <span class="cr-val"><a href="https://www.facebook.com/p/Variksen-Luomu-marjatila-100067146641701/" target="_blank" rel="noopener">Variksen Luomu marjatila</a></span>
+            </div>
+          </div>
+        </div>
+        <div class="contact-map-area fade-up">
+          <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=25.9,63.4,26.2,63.7&layer=mapnik&marker=63.67,26.01"
+            title="Sijainti kartalla – Location on map"
+            loading="lazy"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Variksen Luomu · Pyhäjärvi</span>
+      <span class="footer-demo">Demo, designed by <a href="https://antonjalonen.fi" target="_blank" rel="noopener">Anton Jalonen</a> — sivusto on esittelytarkoituksessa</span>
+    </div>
+  </footer>
+
+  <script>
+    // Language toggle
+    const html = document.documentElement;
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const l = btn.dataset.l;
+        html.setAttribute('data-lang', l);
+        html.setAttribute('lang', l === 'sv' ? 'sv' : l === 'en' ? 'en' : 'fi');
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b === btn));
+      });
+    });
+
+    // Nav scroll solidify (transparent → cream)
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('solid', window.scrollY > 60);
+    }, { passive: true });
+
+    // Hamburger
+    const ham = document.getElementById('hamburger');
+    const mob = document.getElementById('nav-mobile');
+    ham.addEventListener('click', () => {
+      mob.classList.toggle('open');
+    });
+    mob.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => mob.classList.remove('open'));
+    });
+
+    // Fade up on scroll
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
