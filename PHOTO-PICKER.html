@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Photo Picker – Variksen Luomu</title>
+<style>
+body { font-family: monospace; background: #1a1a1a; color: #e0e0e0; padding: 2rem; }
+h1 { color: #35e6ff; font-size: 1.1rem; margin-bottom: 1rem; }
+.target { background: #111; border: 1px solid #333; padding: 1rem; border-radius: 4px; margin-bottom: 1.5rem; }
+.target p { margin: 0.25rem 0; font-size: 0.8rem; color: #888; }
+.target strong { color: #fff; }
+.target code { color: #35e6ff; }
+a.fb-link { display: inline-block; margin-top: 0.75rem; background: #1877f2; color: white; padding: 0.5rem 1rem; border-radius: 4px; text-decoration: none; font-size: 0.85rem; }
+a.fb-link:hover { background: #0d6efd; }
+</style>
+</head>
+<body>
+<h1>PHOTO-PICKER — Variksen Luomu marjatila</h1>
+<p style="color:#888;font-size:0.8rem;margin-bottom:2rem">Facebook CDN blocks all JS download methods (CORS, no-cors, canvas — all fail). These photos MUST be downloaded manually by Anton in his browser session.</p>
+
+<div class="target">
+  <strong>01 — Hero photo (mansikka field or berry close-up)</strong>
+  <p>Target: <code>variksen-luomu/images/hero.jpg</code></p>
+  <p>Ideal: 1200px+ wide, landscape orientation, strawberries or berry field in summer</p>
+  <p>In the HTML: replace <code>.hero-photo-ph</code> div with <code>&lt;img src="images/hero.jpg" alt="Luomumansikka Pyhäjärvellä"&gt;</code></p>
+  <a class="fb-link" href="https://www.facebook.com/p/Variksen-Luomu-marjatila-100067146641701/photos/" target="_blank">Open FB Photos →</a>
+</div>
+
+<div class="target">
+  <strong>02 — Story/portrait photo (farm scene or Ari at work)</strong>
+  <p>Target: <code>variksen-luomu/images/story.jpg</code></p>
+  <p>Ideal: portrait orientation (4:5 or 3:4), farm/field/person/equipment</p>
+  <p>In the HTML: replace <code>.story-photo-ph</code> div with <code>&lt;img src="images/story.jpg" alt="Ari Varis Variksen Luomun tila"&gt;</code></p>
+  <a class="fb-link" href="https://www.facebook.com/p/Variksen-Luomu-marjatila-100067146641701/" target="_blank">Open FB Page →</a>
+</div>
+
+<div class="target">
+  <strong>03 — Optional: Cover photo (wide banner)</strong>
+  <p>Target: <code>variksen-luomu/images/cover.jpg</code></p>
+  <p>Facebook cover photo is 960x400 — wide format, use as hero or background</p>
+  <a class="fb-link" href="https://www.facebook.com/p/Variksen-Luomu-marjatila-100067146641701/" target="_blank">Open FB Page →</a>
+</div>
+
+<hr style="border-color:#333;margin:2rem 0">
+<p style="color:#888;font-size:0.75rem">After downloading, place JPEGs in <code>variksen-luomu/images/</code>, update the HTML as noted above, then commit+push to GitHub. The site will auto-update on GitHub Pages.</p>
+<p style="color:#888;font-size:0.75rem">Live URL (needs photos): <a href="https://antonjalonen-cmd.github.io/variksen-luomu/" style="color:#35e6ff">https://antonjalonen-cmd.github.io/variksen-luomu/</a></p>
+</body>
+</html>
